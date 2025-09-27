@@ -27,11 +27,10 @@ It is designed for easy collaboration with a **zero-manual-setup local developme
 ## 🚀 Getting Started (Development)
 
 ### 1. Clone the repository
-`bash
-git clone [https://github.com/](https://github.com/)rajattarade/Hisabwala-api.git
-cd hisabwala-api
-`
-
+```plaintext
+git clone https://github.com/rajattarade/Hisabwala-api.git
+cd Hisabwala-api
+```
 ### 2. Ensure Docker is running
 Make sure Docker Desktop (or Docker Engine) is up.
 
@@ -44,7 +43,7 @@ Make sure Docker Desktop (or Docker Engine) is up.
 #### Option B: CLI
 `bash
 dotnet run --project src/Hisabwala.Api
-``
+`
 
 ### 4. What happens under the hood
 When you run the API in **Debug** mode:
@@ -55,10 +54,8 @@ When you run the API in **Debug** mode:
    - Starts a fresh **Postgres 15 container**
    - Waits until DB is healthy  
 3. Once DB is ready, API starts on:  
-   ``
-   [http://localhost:5000
-](http://localhost:5000
-)   `
+   
+   [http://localhost:5000](http://localhost:5000)
 
 👉 This automation works only in **Debug mode**.  
 In Production, the API connects directly to a managed PostgreSQL instance.
@@ -106,8 +103,10 @@ But here are some useful commands if needed:
 
 ## 📂 Project Structure
 
-`
+```plaintext
 Hisabwala-api/
+├── db/                  # Database init scripts (seed.sql, schema.sql, etc.)
+│   └── init/            # Mounted into Postgres container on startup
 ├── docker-compose.yml   # Local Postgres service definition
 ├── src/
 │   └── Hisabwala.Api/   # Main API project
@@ -115,7 +114,7 @@ Hisabwala-api/
 │       ├── Program.cs   # Entry point (spins up DB in Debug mode)
 │       └── ...
 └── README.md
-`
+```
 
 ---
 
@@ -124,4 +123,3 @@ Hisabwala-api/
 - **Ephemeral DB**: local DB is wiped & reseeded every time a new container starts  
 - **Debug-only automation**: DB auto-launching happens only in Debug builds  
 - **Production**: API expects external DB, no Docker container launched  
-`
