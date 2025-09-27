@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS tags (
+    TagID SERIAL PRIMARY KEY,
+    TagName VARCHAR(100) NOT NULL
+);
+
+INSERT INTO tags (TagName)
+VALUES 
+    ('Food'),
+    ('Drinks')
+ON CONFLICT DO NOTHING;

@@ -20,7 +20,7 @@ process.WaitForExit();
 if (string.IsNullOrEmpty(output))
 {
     Console.WriteLine("⏳ Starting DB container...");
-    Process.Start("docker", "compose -f docker-compose.dev.yml up --build");
+    Process.Start("docker", "compose -f ../../docker-compose.dev.yml up --build");
 }
 else
 {

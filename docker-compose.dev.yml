@@ -8,9 +8,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-hisabwala_dev}
-    #volumes:
-      #- db-data:/var/lib/postgresql/data
-      #- ./db/init:/docker-entrypoint-initdb.d
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     healthcheck:
