@@ -1,4 +1,6 @@
+using Hisabwala.Application.Interfaces;
 using Hisabwala.Infrastructure.Persistence;
+using Hisabwala.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,15 @@ builder.Services.AddSwaggerGen();
 // Configure EF Core
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure MediatR
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetTagsQueryHandler).Assembly);
+});
+
+//Repository Registration
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 var app = builder.Build();
 
