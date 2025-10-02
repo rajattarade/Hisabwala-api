@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hisabwala_api.Controllers
+namespace Hisabwala.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,4 +1,4 @@
-namespace Hisabwala_api
+namespace Hisabwala.Api
 {
     public class WeatherForecast
     {

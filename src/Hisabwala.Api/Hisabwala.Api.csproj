@@ -4,10 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Hisabwala_api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hisabwala.Application\Hisabwala.Application.csproj" />
+    <ProjectReference Include="..\Hisabwala.Infrastructure\Hisabwala.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
