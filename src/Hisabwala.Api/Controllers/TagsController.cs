@@ -1,9 +1,11 @@
-﻿using Hisabwala.Application.Features.Tags.GetTags;
+﻿using Hisabwala.Application.Features.Tags.AddTag;
+using Hisabwala.Application.Features.Tags.GetTags;
+using Hisabwala.Core.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class TagsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -18,5 +20,12 @@ public class TagsController : ControllerBase
     {
         var result = await _mediator.Send(new GetTagsQuery());
         return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<Result<TagDto>> AddTag([FromBody] AddTagCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return result;
     }
 }

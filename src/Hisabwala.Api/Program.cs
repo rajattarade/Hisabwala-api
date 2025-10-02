@@ -1,6 +1,9 @@
+using Hisabwala.Api.Behaviors;
+using Hisabwala.Application.Features.Tags.AddTag;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Infrastructure.Persistence;
 using Hisabwala.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,10 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(GetTagsQueryHandler).Assembly);
 });
+
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddScoped<IValidator<AddTagCommand>, AddTagValidator>();
 
 //Repository Registration
 builder.Services.AddScoped<ITagRepository, TagRepository>();
