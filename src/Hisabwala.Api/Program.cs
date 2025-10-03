@@ -25,11 +25,11 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetTagsQueryHandler).Assembly);
 });
 
-
+// Configer Validators
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddScoped<IValidator<AddTagCommand>, AddTagValidator>();
 
-//Repository Registration
+// Repository Registration
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 var app = builder.Build();
