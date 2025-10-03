@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Entities;
-using Hisabwala.Application.Features.Tags.GetTags;
 using Hisabwala.Core.Common;
 
 namespace Hisabwala.Application.Features.Tags.AddTag;

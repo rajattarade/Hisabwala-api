@@ -1,4 +1,4 @@
-﻿namespace Hisabwala.Application.Features.Tags.GetTags;
+﻿namespace Hisabwala.Application.Features.Tags;
 
 public class TagDto
 {

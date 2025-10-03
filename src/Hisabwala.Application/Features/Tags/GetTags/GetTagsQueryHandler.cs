@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Hisabwala.Application.Interfaces;
-using Hisabwala.Application.Features.Tags.GetTags;
+using Hisabwala.Application.Features.Tags;
 
 public class GetTagsQueryHandler : IRequestHandler<GetTagsQuery, List<TagDto>>
 {

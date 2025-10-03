@@ -1,5 +1,5 @@
-﻿using Hisabwala.Application.Features.Tags.AddTag;
-using Hisabwala.Application.Features.Tags.GetTags;
+﻿using Hisabwala.Application.Features.Tags;
+using Hisabwala.Application.Features.Tags.AddTag;
 using Hisabwala.Core.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
