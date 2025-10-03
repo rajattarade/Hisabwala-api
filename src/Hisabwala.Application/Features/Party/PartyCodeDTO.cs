@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Hisabwala.Application.Features.Party
+{
+    public class PartyCodeDTO
+    {
+        public int Id { get; set; }
+        public string PartyName { get; set; } = string.Empty;
+        public string PartyCode { get; set; } = string.Empty;
+        public DateTime CreatedDateTime { get; set; }
+    }
+}
