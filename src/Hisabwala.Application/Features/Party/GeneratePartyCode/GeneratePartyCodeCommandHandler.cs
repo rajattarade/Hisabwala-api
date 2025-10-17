@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Features.Tags.AddTag;
-using Hisabwala.Application.Features.Tags;
-using Hisabwala.Core.Common;
+﻿using Hisabwala.Core.Common;
 using MediatR;
 using Hisabwala.Application.Interfaces;
 
