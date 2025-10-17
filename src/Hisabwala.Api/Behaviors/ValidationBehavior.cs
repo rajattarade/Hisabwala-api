@@ -20,7 +20,7 @@ public class ValidationBehavior<TRequest, TResponse>
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        var result = await _validator.ValidateAsync(request);
+        var result = await _validator.ValidateAsync(request, cancellationToken);
         if (!result.Success)
         {
             return new TResponse

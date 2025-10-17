@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Features.Party;
+﻿using Hisabwala.Application.Features.Party;
 using Hisabwala.Core.Entities;
 
 namespace Hisabwala.Application.Interfaces
@@ -12,5 +7,6 @@ namespace Hisabwala.Application.Interfaces
     {
         Task<bool> PartyExistsAsync(string partyCode, CancellationToken cancellationToken);
         Task<Party> AddPartyAsync(PartyCodeDTO dto, CancellationToken cancellationToken);
+        Task<Party> GetPartyAsync(string partyCode, CancellationToken cancellationToken);
     }
 }

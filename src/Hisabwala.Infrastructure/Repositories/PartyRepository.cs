@@ -32,6 +32,12 @@ namespace Hisabwala.Infrastructure.Repositories
                                  .Find(p => p.PartyCode.ToLower() == partyCode.ToLower())
                                  .AnyAsync(cancellationToken);
         }
-    }
 
+        public async Task<Party> GetPartyAsync(string partyCode, CancellationToken cancellationToken)
+        {
+            return await _context.Parties
+                           .Find(p => p.PartyCode.ToLower() == partyCode.ToLower())
+                           .FirstAsync(cancellationToken);
+        }
+    }
 }

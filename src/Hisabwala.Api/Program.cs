@@ -1,5 +1,6 @@
 using Hisabwala.Api.Behaviors;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
+using Hisabwala.Application.Features.Party.GetPartyInformation;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Infrastructure;
 using Hisabwala.Infrastructure.Repositories;
@@ -37,6 +38,7 @@ builder.Services.AddMediatR(cfg =>
 // Configer Validators
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddScoped<IValidator<GeneratePartyCodeCommand>, GeneratePartyCodeValidator>();
+builder.Services.AddScoped<IValidator<GetPartyInformationCommand>, GetPartyInformationCommandValidator>();
 
 // Repository Registration
 builder.Services.AddScoped<IPartyRepository, PartyRepository>();

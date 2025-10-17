@@ -11,7 +11,7 @@ namespace Hisabwala.Application.Features.Party.GeneratePartyCode
     public class GeneratePartyCodeValidator : IValidator<GeneratePartyCodeCommand>
     {
         public GeneratePartyCodeValidator() { }
-        public Task<Result<bool>> ValidateAsync(GeneratePartyCodeCommand request)
+        public Task<Result<bool>> ValidateAsync(GeneratePartyCodeCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.PartyName))
                 return Task.FromResult(Result<bool>.Fail("Party name is required."));
