@@ -8,7 +8,7 @@ namespace Hisabwala.Application.Features.Party
 {
     public class PartyCodeDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
         public string PartyName { get; set; } = string.Empty;
         public string PartyCode { get; set; } = string.Empty;
         public DateTime CreatedDateTime { get; set; }

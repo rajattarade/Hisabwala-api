@@ -1,16 +1,15 @@
 ﻿using Hisabwala.Application.Features.Party;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Entities;
-using Hisabwala.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace Hisabwala.Infrastructure.Repositories
 {
     public class PartyRepository : IPartyRepository
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public PartyRepository(AppDbContext context)
+        public PartyRepository(MongoDbContext context)
         {
             _context = context;
         }
@@ -23,14 +22,15 @@ namespace Hisabwala.Infrastructure.Repositories
                 PartyCode = dto.PartyCode
             };
 
-            _context.Parties.Add(partyEntity);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.Parties.InsertOneAsync(partyEntity);
             return partyEntity;
         }
 
         public async Task<bool> PartyExistsAsync(string partyCode, CancellationToken cancellationToken)
         {
-            return await _context.Parties.AnyAsync(p => p.PartyCode.ToLower() == partyCode.ToLower(), cancellationToken);
+            return await _context.Parties
+                                 .Find(p => p.PartyCode.ToLower() == partyCode.ToLower())
+                                 .AnyAsync(cancellationToken);
         }
     }
 

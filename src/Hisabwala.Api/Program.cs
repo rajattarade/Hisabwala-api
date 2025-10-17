@@ -1,10 +1,9 @@
 using Hisabwala.Api.Behaviors;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Interfaces;
-using Hisabwala.Infrastructure.Persistence;
+using Hisabwala.Infrastructure;
 using Hisabwala.Infrastructure.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +25,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configure EF Core
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Configure MongoDB
+builder.Services.AddSingleton<MongoDbContext>();
 
 // Configure MediatR
 builder.Services.AddMediatR(cfg =>

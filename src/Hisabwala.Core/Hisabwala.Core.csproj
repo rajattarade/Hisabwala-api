@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0" />
+    <PackageReference Include="MongoDB.Bson" Version="3.5.0" />
+    <PackageReference Include="MongoDB.Driver" Version="3.5.0" />
   </ItemGroup>
 
 </Project>
