@@ -1,8 +1,13 @@
-﻿namespace Hisabwala.Core.Entities
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace Hisabwala.Core.Entities
 {
     public class Expense
     {
-        public int Id { get; set; }
+        [BsonId] // tells MongoDB this is the _id field
+        [BsonRepresentation(BsonType.ObjectId)] // allows using string instead of ObjectId
+        public string Id { get; set; } = null!;
         public string Name { get; set; } = default!;
         public decimal Amount { get; set; }
         public string PaidBy { get; set; } = default!;

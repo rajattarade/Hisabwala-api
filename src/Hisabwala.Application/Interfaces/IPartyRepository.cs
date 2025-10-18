@@ -8,5 +8,6 @@ namespace Hisabwala.Application.Interfaces
         Task<bool> PartyExistsAsync(string partyCode, CancellationToken cancellationToken);
         Task<Party> AddPartyAsync(PartyCodeDTO dto, CancellationToken cancellationToken);
         Task<Party> GetPartyAsync(string partyCode, CancellationToken cancellationToken);
+        Task UpdatePartyAsync(Party party, CancellationToken cancellationToken);
     }
 }

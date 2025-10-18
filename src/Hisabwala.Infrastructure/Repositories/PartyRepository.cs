@@ -39,5 +39,10 @@ namespace Hisabwala.Infrastructure.Repositories
                            .Find(p => p.PartyCode.ToLower() == partyCode.ToLower())
                            .FirstAsync(cancellationToken);
         }
+
+        public async Task UpdatePartyAsync(Party party, CancellationToken cancellationToken)
+        {
+            await _context.Parties.ReplaceOneAsync(p => p.PartyCode.ToLower() == party.PartyCode.ToLower(), party, cancellationToken: cancellationToken);
+        }
     }
 }
