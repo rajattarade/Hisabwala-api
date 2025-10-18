@@ -37,7 +37,7 @@ builder.Services.AddMediatR(cfg =>
 
 // Configer Validators
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-builder.Services.AddScoped<IValidator<GeneratePartyCodeCommand>, GeneratePartyCodeValidator>();
+builder.Services.AddScoped<IValidator<GeneratePartyCodeCommand>, GeneratePartyCodeCommandValidator>();
 builder.Services.AddScoped<IValidator<GetPartyInformationCommand>, GetPartyInformationCommandValidator>();
 
 // Repository Registration

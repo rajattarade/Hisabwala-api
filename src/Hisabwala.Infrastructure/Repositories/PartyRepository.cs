@@ -1,4 +1,4 @@
-﻿using Hisabwala.Application.Features.Party;
+﻿using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Entities;
 using MongoDB.Driver;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hisabwala.Application.Features.Party
+namespace Hisabwala.Application.Features.Party.GeneratePartyCode
 {
     public class PartyCodeDTO
     {

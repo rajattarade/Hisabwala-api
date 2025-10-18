@@ -8,9 +8,9 @@ using Hisabwala.Core.Common;
 
 namespace Hisabwala.Application.Features.Party.GeneratePartyCode
 {
-    public class GeneratePartyCodeValidator : IValidator<GeneratePartyCodeCommand>
+    public class GeneratePartyCodeCommandValidator : IValidator<GeneratePartyCodeCommand>
     {
-        public GeneratePartyCodeValidator() { }
+        public GeneratePartyCodeCommandValidator() { }
         public Task<Result<bool>> ValidateAsync(GeneratePartyCodeCommand request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.PartyName))
