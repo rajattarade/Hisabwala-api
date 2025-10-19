@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Common;
-using MediatR;
 
 namespace Hisabwala.Application.Shared
 {
@@ -28,6 +24,54 @@ namespace Hisabwala.Application.Shared
                 return Result<bool>.Fail("Party with the given code does not exist.");
 
             return Result<bool>.Ok(true);
+        }
+
+        public static void UpdateContributions(this Core.Entities.Party partyInDatabase)
+        {
+            Dictionary<string, decimal> tagAmounts = new();
+            foreach (var expense in partyInDatabase.Expenses)
+            {
+                if (tagAmounts.ContainsKey(expense.Tag))
+                {
+                    tagAmounts[expense.Tag] += expense.Amount;
+                }
+                else
+                {
+                    tagAmounts[expense.Tag] = expense.Amount;
+                }
+            }
+
+            Dictionary<string, decimal> peoplePerTag = new();
+            foreach (var contribution in partyInDatabase.Contributions)
+            {
+                contribution.Amount = 0;
+                foreach (var tag in contribution.Tags.Distinct())
+                {
+                    if (peoplePerTag.ContainsKey(tag))
+                    {
+                        peoplePerTag[tag] += 1;
+                    }
+                    else
+                    {
+                        peoplePerTag[tag] = 1;
+                    }
+                }
+            }
+
+            foreach (var tagAmount in tagAmounts)
+            {
+                var tag = tagAmount.Key;
+                var totalAmount = tagAmount.Value;
+                var peopleCount = peoplePerTag[tag];
+                var amountPerPerson = Math.Round(totalAmount / peopleCount);
+                foreach (var contribution in partyInDatabase.Contributions)
+                {
+                    if (contribution.Tags.Contains(tag))
+                    {
+                        contribution.Amount += amountPerPerson;
+                    }
+                }
+            }
         }
     }
 }
