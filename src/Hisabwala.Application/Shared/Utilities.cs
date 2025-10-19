@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Common;
+using Hisabwala.Core.Entities;
 using MediatR;
 
 namespace Hisabwala.Application.Shared

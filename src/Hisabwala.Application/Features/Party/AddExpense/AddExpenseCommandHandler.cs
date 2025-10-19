@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Interfaces;
+using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 using MediatR;
 using MongoDB.Bson;
@@ -33,7 +34,7 @@ namespace Hisabwala.Application.Features.Party.AddExpense
                 Tag = request.Tag
             };
 
-            party.Expenses.Add(expense);
+            party.AddExpense(expense);
 
             await _partyRepository.UpdatePartyAsync(party, cancellationToken);
 
