@@ -53,7 +53,9 @@ namespace Hisabwala.Application.Features.Party.AddContribution
             }
             else
             {
-                partyInDatabase.Contributions.First(c => c.Name == contri.Name).Tags.AddRange(contri.Tags);
+                List<string> existingTags = partyInDatabase.Contributions.First(c => c.Name == contri.Name).Tags;
+                existingTags.Concat(contri.Tags);
+                partyInDatabase.Contributions.First(c => c.Name == contri.Name).Tags = existingTags.Distinct().ToList();
             }
         }
     }

@@ -28,11 +28,11 @@ namespace Hisabwala.Application.Features.Party.AddContribution
                 return Result<bool>.Fail("Name is required.");
 
             if (request.Tags.Count == 0)
-                return Result<bool>.Fail("Atleast one tag is required to calculate contribution.");
+                return Result<bool>.Fail("At least one tag is required to calculate contribution.");
 
             var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
-            if (!partyInfo.Tags.Any(request.Tags.Contains))
-                return Result<bool>.Fail("Invalid tag used.");
+            if (request.Tags.Any(tag => !partyInfo.Tags.Contains(tag)))
+                return Result<bool>.Fail("One or more invalid tags provided.");
 
             return Result<bool>.Ok(true);
         }

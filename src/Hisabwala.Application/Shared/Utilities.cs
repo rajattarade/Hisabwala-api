@@ -62,6 +62,8 @@ namespace Hisabwala.Application.Shared
             {
                 var tag = tagAmount.Key;
                 var totalAmount = tagAmount.Value;
+                if (!peoplePerTag.ContainsKey(tag) || peoplePerTag[tag] == 0)
+                    continue;
                 var peopleCount = peoplePerTag[tag];
                 var amountPerPerson = Math.Round(totalAmount / peopleCount);
                 foreach (var contribution in partyInDatabase.Contributions)
