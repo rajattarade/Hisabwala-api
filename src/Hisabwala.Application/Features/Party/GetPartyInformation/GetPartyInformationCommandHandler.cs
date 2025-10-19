@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Core.Common;
 using MediatR;
 
@@ -27,6 +22,7 @@ namespace Hisabwala.Application.Features.Party.GetPartyInformation
                 PartyName = party.PartyName,
                 PartyCode = party.PartyCode,
                 CreatedDateTime = party.CreatedDateTime,
+                Tags = party.Tags,
                 Expenses = party.Expenses,
                 Contributions = party.Contributions
             };

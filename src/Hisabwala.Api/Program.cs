@@ -1,4 +1,5 @@
 using Hisabwala.Api.Behaviors;
+using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Features.Party.GetPartyInformation;
@@ -41,6 +42,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddScoped<IValidator<GeneratePartyCodeCommand>, GeneratePartyCodeCommandValidator>();
 builder.Services.AddScoped<IValidator<GetPartyInformationCommand>, GetPartyInformationCommandValidator>();
 builder.Services.AddScoped<IValidator<AddExpenseCommand>, AddExpenseCommandValidator>();
+builder.Services.AddScoped<IValidator<AddContributionCommand>, AddContributionCommandValidator>();
 
 // Repository Registration
 builder.Services.AddScoped<IPartyRepository, PartyRepository>();
