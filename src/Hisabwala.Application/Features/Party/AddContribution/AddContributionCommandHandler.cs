@@ -27,7 +27,8 @@ namespace Hisabwala.Application.Features.Party.AddContribution
                 Tags = request.Tags.Select(tag => tag.FirstCharToUpper()).ToList()
             };
 
-            AddContribution(contri);
+            partyInDatabase.Contributions.Add(contri);
+            partyInDatabase.UpdateContributions();
 
             await _partyRepository.UpdatePartyAsync(partyInDatabase, cancellationToken);
 
@@ -37,26 +38,6 @@ namespace Hisabwala.Application.Features.Party.AddContribution
             };
 
             return Result<AddContributionDTO>.Ok(contriDTO);
-        }
-
-        private void AddContribution(Contribution contri)
-        {
-            AddContributorIfNeeded(contri);
-            partyInDatabase.UpdateContributions();
-        }
-
-        private void AddContributorIfNeeded(Contribution contri)
-        {
-            if (!partyInDatabase.Contributions.Any(c => c.Name == contri.Name))
-            {
-                partyInDatabase.Contributions.Add(contri);
-            }
-            else
-            {
-                List<string> existingTags = partyInDatabase.Contributions.First(c => c.Name == contri.Name).Tags;
-                existingTags.Concat(contri.Tags);
-                partyInDatabase.Contributions.First(c => c.Name == contri.Name).Tags = existingTags.Distinct().ToList();
-            }
         }
     }
 }

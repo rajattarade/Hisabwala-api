@@ -34,6 +34,14 @@ namespace Hisabwala.Application.Features.Party.AddContribution
             if (request.Tags.Any(tag => !partyInfo.Tags.Contains(tag)))
                 return Result<bool>.Fail("One or more invalid tags provided.");
 
+            if (request.Name.Length > 50)
+                return Result<bool>.Fail("Name cannot exceed 50 characters.");
+
+            if (partyInfo.Contributions.Any(c => c.Name.ToLower() == request.Name.ToLower()))
+            {
+                return Result<bool>.Fail("Contribution with the same name already exists.");
+            }
+
             return Result<bool>.Ok(true);
         }
     }
