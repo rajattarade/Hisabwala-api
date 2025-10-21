@@ -28,51 +28,30 @@ namespace Hisabwala.Application.Shared
 
         public static void UpdateContributions(this Core.Entities.Party partyInDatabase)
         {
-            Dictionary<string, decimal> tagAmounts = new();
-            foreach (var expense in partyInDatabase.Expenses)
-            {
-                if (tagAmounts.ContainsKey(expense.Tag))
-                {
-                    tagAmounts[expense.Tag] += expense.Amount;
-                }
-                else
-                {
-                    tagAmounts[expense.Tag] = expense.Amount;
-                }
-            }
+            // Reset all contribution amounts
+            foreach (var c in partyInDatabase.Contributions)
+                c.Amount = 0;
 
-            Dictionary<string, decimal> peoplePerTag = new();
-            foreach (var contribution in partyInDatabase.Contributions)
-            {
-                contribution.Amount = 0;
-                foreach (var tag in contribution.Tags.Distinct())
-                {
-                    if (peoplePerTag.ContainsKey(tag))
-                    {
-                        peoplePerTag[tag] += 1;
-                    }
-                    else
-                    {
-                        peoplePerTag[tag] = 1;
-                    }
-                }
-            }
+            // Group expenses by tag and calculate total per tag
+            var tagTotals = partyInDatabase.Expenses
+                .GroupBy(e => e.Tag)
+                .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
 
-            foreach (var tagAmount in tagAmounts)
+            // Count how many people have each tag
+            var peoplePerTag = partyInDatabase.Contributions
+                .SelectMany(c => c.Tags.Distinct(), (c, t) => t)
+                .GroupBy(t => t)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            // Distribute tag totals
+            foreach (var (tag, total) in tagTotals)
             {
-                var tag = tagAmount.Key;
-                var totalAmount = tagAmount.Value;
-                if (!peoplePerTag.ContainsKey(tag) || peoplePerTag[tag] == 0)
+                if (!peoplePerTag.TryGetValue(tag, out var count) || count == 0)
                     continue;
-                var peopleCount = peoplePerTag[tag];
-                var amountPerPerson = Math.Round(totalAmount / peopleCount);
-                foreach (var contribution in partyInDatabase.Contributions)
-                {
-                    if (contribution.Tags.Contains(tag))
-                    {
-                        contribution.Amount += amountPerPerson;
-                    }
-                }
+
+                var share = Math.Round(total / count);
+                foreach (var c in partyInDatabase.Contributions.Where(c => c.Tags.Contains(tag)))
+                    c.Amount += share;
             }
         }
     }

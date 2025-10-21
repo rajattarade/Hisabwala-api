@@ -5,10 +5,10 @@ namespace Hisabwala.Application.Features.Party.AddExpense
 {
     public class AddExpenseCommand : IRequest<Result<AddExpenseDTO>>
     {
-        public string PartyCode { get; set; } = null!;
-        public string Name { get; set; } = default!;
+        public string? PartyCode { get; set; }
+        public string? Name { get; set; }
         public decimal Amount { get; set; }
-        public string PaidBy { get; set; } = default!;
-        public string Tag { get; set; } = default!;
+        public string? PaidBy { get; set; }
+        public string? Tag { get; set; }
     }
 }
