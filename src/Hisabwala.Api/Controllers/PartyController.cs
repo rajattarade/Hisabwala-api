@@ -1,5 +1,6 @@
 ﻿using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
+using Hisabwala.Application.Features.Party.EditContribution;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Features.Party.GetPartyInformation;
 using Hisabwala.Core.Common;

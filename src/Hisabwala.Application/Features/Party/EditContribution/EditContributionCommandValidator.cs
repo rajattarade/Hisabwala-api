@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
@@ -38,9 +32,9 @@ namespace Hisabwala.Application.Features.Party.EditContribution
                 return Result<bool>.Fail("Name cannot exceed 50 characters.");
 
             var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
-            if (request.Tags.Any(tag => !partyInfo.Tags.Contains(tag)))
+            if (request.Tags.Any(tag => !partyInfo.Tags.Any(t => t.Equals(tag, StringComparison.OrdinalIgnoreCase))))
                 return Result<bool>.Fail("One or more invalid tags provided.");
-
+            
             if (!partyInfo.Contributions.Any(c => c.Id == request.ID))
             {
                 return Result<bool>.Fail("Invalid Contribution ID.");

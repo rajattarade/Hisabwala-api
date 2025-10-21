@@ -1,9 +1,7 @@
-﻿using Hisabwala.Application.Features.Party.AddContribution;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 using MediatR;
-using MongoDB.Bson;
 
 namespace Hisabwala.Application.Features.Party.EditContribution
 {
@@ -20,7 +18,11 @@ namespace Hisabwala.Application.Features.Party.EditContribution
         public async Task<Result<EditContributionDTO>> Handle(EditContributionCommand request, CancellationToken cancellationToken)
         {
             partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
-            var contri = partyInDatabase.Contributions.First(c => c.Id == request.ID);
+            var contri = partyInDatabase.Contributions.FirstOrDefault(c => c.Id == request.ID);
+            if (contri == null)
+            {
+                return Result<EditContributionDTO>.Fail("Contribution not found.");
+            }
 
             contri.Name = request.Name.FirstCharToUpper();
             contri.Tags = request.Tags.Select(tag => tag.FirstCharToUpper()).ToList();
