@@ -44,4 +44,11 @@ public class PartyController : ControllerBase
         var result = await _mediator.Send(command);
         return result;
     }
+
+    [HttpPost]
+    public async Task<Result<EditContributionDTO>> EditContribution([FromBody] EditContributionCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return result;
+    }
 }
