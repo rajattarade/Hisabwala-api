@@ -8,7 +8,6 @@ namespace Hisabwala.Application.Features.Party.EditContribution
     public class EditContributionCommandHandler : IRequestHandler<EditContributionCommand, Result<EditContributionDTO>>
     {
         private readonly IPartyRepository _partyRepository;
-        private Core.Entities.Party partyInDatabase;
 
         public EditContributionCommandHandler(IPartyRepository partyRepository)
         {
@@ -17,7 +16,7 @@ namespace Hisabwala.Application.Features.Party.EditContribution
 
         public async Task<Result<EditContributionDTO>> Handle(EditContributionCommand request, CancellationToken cancellationToken)
         {
-            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            Core.Entities.Party partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
             var contri = partyInDatabase.Contributions.FirstOrDefault(c => c.Id == request.ID);
             if (contri == null)
             {

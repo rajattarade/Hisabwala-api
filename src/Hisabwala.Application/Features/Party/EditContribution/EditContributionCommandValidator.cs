@@ -25,7 +25,7 @@ namespace Hisabwala.Application.Features.Party.EditContribution
             if (string.IsNullOrWhiteSpace(request.Name))
                 return Result<bool>.Fail("Contribution Name is required.");
 
-            if (request.Tags.Count == 0)
+            if (request.Tags == null || request.Tags.Count == 0)
                 return Result<bool>.Fail("At least one tag is required to calculate contribution.");
 
             if (request.Name.Length > 50)
