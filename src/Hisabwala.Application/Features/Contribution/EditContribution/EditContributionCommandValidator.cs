@@ -2,7 +2,7 @@
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
-namespace Hisabwala.Application.Features.Party.EditContribution
+namespace Hisabwala.Application.Features.Contribution.EditContribution
 {
     public class EditContributionCommandValidator : IValidator<EditContributionCommand>
     {

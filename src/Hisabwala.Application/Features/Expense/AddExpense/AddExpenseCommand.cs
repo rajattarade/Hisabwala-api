@@ -1,7 +1,7 @@
 ﻿using Hisabwala.Core.Common;
 using MediatR;
 
-namespace Hisabwala.Application.Features.Party.AddExpense
+namespace Hisabwala.Application.Features.Expense.AddExpense
 {
     public class AddExpenseCommand : IRequest<Result<AddExpenseDTO>>
     {

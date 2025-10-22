@@ -3,7 +3,7 @@ using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 using MediatR;
 
-namespace Hisabwala.Application.Features.Party.EditContribution
+namespace Hisabwala.Application.Features.Contribution.EditContribution
 {
     public class EditContributionCommandHandler : IRequestHandler<EditContributionCommand, Result<EditContributionDTO>>
     {

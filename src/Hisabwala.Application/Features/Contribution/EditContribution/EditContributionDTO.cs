@@ -1,4 +1,4 @@
-﻿namespace Hisabwala.Application.Features.Party.EditContribution
+﻿namespace Hisabwala.Application.Features.Contribution.EditContribution
 {
     public class EditContributionDTO
     {

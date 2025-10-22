@@ -6,12 +6,12 @@ using MediatR;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Hisabwala.Application.Features.Party.AddExpense
+namespace Hisabwala.Application.Features.Expense.AddExpense
 {
     public class AddExpenseCommandHandler : IRequestHandler<AddExpenseCommand, Result<AddExpenseDTO>>
     {
         private readonly IPartyRepository _partyRepository;
-        private Core.Entities.Party partyInDatabase;
+        private Core.Entities.Party? partyInDatabase;
 
         public AddExpenseCommandHandler(IPartyRepository partyRepository)
         {
@@ -20,15 +20,15 @@ namespace Hisabwala.Application.Features.Party.AddExpense
 
         public async Task<Result<AddExpenseDTO>> Handle(AddExpenseCommand request, CancellationToken cancellationToken)
         {
-            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
 
-            var expense = new Expense
+            var expense = new Core.Entities.Expense
             {
                 Id = ObjectId.GenerateNewId().ToString(),
-                Name = request.Name.FirstCharToUpper(),
+                Name = request.Name!.FirstCharToUpper(),
                 Amount = request.Amount,
-                PaidBy = request.PaidBy.FirstCharToUpper(),
-                Tag = request.Tag.FirstCharToUpper()
+                PaidBy = request.PaidBy!.FirstCharToUpper(),
+                Tag = request.Tag!.FirstCharToUpper()
             };
 
             AddExpense(expense);
@@ -43,9 +43,9 @@ namespace Hisabwala.Application.Features.Party.AddExpense
             return Result<AddExpenseDTO>.Ok(expenseDTO);
         }
 
-        private void AddExpense(Expense expense)
+        private void AddExpense(Core.Entities.Expense expense)
         {
-            partyInDatabase.Expenses.Add(expense);
+            partyInDatabase!.Expenses.Add(expense);
             UpdateTags();
             AddContributorIfNeeded(expense.PaidBy, expense.Tag);
             partyInDatabase.UpdateContributions();
@@ -53,9 +53,9 @@ namespace Hisabwala.Application.Features.Party.AddExpense
 
         private void AddContributorIfNeeded(string contributorName, string contributionTag)
         {
-            if (!partyInDatabase.Contributions.Any(c => c.Name == contributorName))
+            if (!partyInDatabase!.Contributions.Any(c => c.Name == contributorName))
             {
-                partyInDatabase.Contributions.Add(new Contribution
+                partyInDatabase.Contributions.Add(new Core.Entities.Contribution
                 {
                     Id = ObjectId.GenerateNewId().ToString(),
                     Name = contributorName,
@@ -74,7 +74,7 @@ namespace Hisabwala.Application.Features.Party.AddExpense
 
         private void UpdateTags()
         {
-            partyInDatabase.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
+            partyInDatabase!.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
         }
     }
 }

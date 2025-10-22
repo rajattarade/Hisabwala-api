@@ -7,7 +7,7 @@ using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
-namespace Hisabwala.Application.Features.Party.AddContribution
+namespace Hisabwala.Application.Features.Contribution.AddContribution
 {
     public class AddContributionCommandValidator : IValidator<AddContributionCommand>
     {

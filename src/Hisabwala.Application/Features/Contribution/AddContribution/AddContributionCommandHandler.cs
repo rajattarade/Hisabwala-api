@@ -5,12 +5,12 @@ using Hisabwala.Core.Entities;
 using MediatR;
 using MongoDB.Bson;
 
-namespace Hisabwala.Application.Features.Party.AddContribution
+namespace Hisabwala.Application.Features.Contribution.AddContribution
 {
     public class AddContributionCommandHandler : IRequestHandler<AddContributionCommand, Result<AddContributionDTO>>
     {
         private readonly IPartyRepository _partyRepository;
-        private Core.Entities.Party partyInDatabase;
+        private Core.Entities.Party? partyInDatabase;
         public AddContributionCommandHandler(IPartyRepository partyRepository)
         {
             _partyRepository = partyRepository;
@@ -19,6 +19,11 @@ namespace Hisabwala.Application.Features.Party.AddContribution
         public async Task<Result<AddContributionDTO>> Handle(AddContributionCommand request, CancellationToken cancellationToken)
         {
             partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            if (partyInDatabase is null)
+            {
+                return Result<AddContributionDTO>.Fail("Party not found.");
+            }
 
             var contri = new Core.Entities.Contribution
             {
@@ -39,15 +44,15 @@ namespace Hisabwala.Application.Features.Party.AddContribution
             return Result<AddContributionDTO>.Ok(contriDTO);
         }
 
-        private void AddContribution(Contribution contri)
+        private void AddContribution(Core.Entities.Contribution contri)
         {
             AddContributorIfNeeded(contri);
-            partyInDatabase.UpdateContributions();
+            partyInDatabase!.UpdateContributions();
         }
 
-        private void AddContributorIfNeeded(Contribution contri)
+        private void AddContributorIfNeeded(Core.Entities.Contribution contri)
         {
-            if (!partyInDatabase.Contributions.Any(c => c.Name == contri.Name))
+            if (!partyInDatabase!.Contributions.Any(c => c.Name == contri.Name))
             {
                 partyInDatabase.Contributions.Add(contri);
             }
