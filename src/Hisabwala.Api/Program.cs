@@ -1,6 +1,7 @@
 using Hisabwala.Api.Behaviors;
 using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
+using Hisabwala.Application.Features.Party.DeleteContribution;
 using Hisabwala.Application.Features.Party.DeleteExpense;
 using Hisabwala.Application.Features.Party.EditContribution;
 using Hisabwala.Application.Features.Party.EditExpense;
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IValidator<EditExpenseCommand>, EditExpenseCommandVal
 builder.Services.AddScoped<IValidator<DeleteExpenseCommand>, DeleteExpenseCommandValidator>();
 builder.Services.AddScoped<IValidator<AddContributionCommand>, AddContributionCommandValidator>();
 builder.Services.AddScoped<IValidator<EditContributionCommand>, EditContributionCommandValidator>();
+builder.Services.AddScoped<IValidator<DeleteContributionCommand>, DeleteContributionCommandValidator>();
 
 // Repository Registration
 builder.Services.AddScoped<IPartyRepository, PartyRepository>();

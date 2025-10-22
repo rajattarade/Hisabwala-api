@@ -1,5 +1,6 @@
 ﻿using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
+using Hisabwala.Application.Features.Party.DeleteContribution;
 using Hisabwala.Application.Features.Party.DeleteExpense;
 using Hisabwala.Application.Features.Party.EditContribution;
 using Hisabwala.Application.Features.Party.EditExpense;
@@ -64,6 +65,13 @@ public class PartyController : ControllerBase
 
     [HttpPost]
     public async Task<Result<EditContributionDTO>> EditContribution([FromBody] EditContributionCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return result;
+    }
+
+    [HttpPost]
+    public async Task<Result<DeleteContributionDTO>> DeleteContribution([FromBody] DeleteContributionCommand command)
     {
         var result = await _mediator.Send(command);
         return result;
