@@ -2,6 +2,7 @@ using Hisabwala.Api.Behaviors;
 using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
 using Hisabwala.Application.Features.Party.EditContribution;
+using Hisabwala.Application.Features.Party.EditExpense;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Features.Party.GetPartyInformation;
 using Hisabwala.Application.Interfaces;
@@ -43,6 +44,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddScoped<IValidator<GeneratePartyCodeCommand>, GeneratePartyCodeCommandValidator>();
 builder.Services.AddScoped<IValidator<GetPartyInformationCommand>, GetPartyInformationCommandValidator>();
 builder.Services.AddScoped<IValidator<AddExpenseCommand>, AddExpenseCommandValidator>();
+builder.Services.AddScoped<IValidator<EditExpenseCommand>, EditExpenseCommandValidator>();
 builder.Services.AddScoped<IValidator<AddContributionCommand>, AddContributionCommandValidator>();
 builder.Services.AddScoped<IValidator<EditContributionCommand>, EditContributionCommandValidator>();
 

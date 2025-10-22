@@ -1,6 +1,7 @@
 ﻿using Hisabwala.Application.Features.Party.AddContribution;
 using Hisabwala.Application.Features.Party.AddExpense;
 using Hisabwala.Application.Features.Party.EditContribution;
+using Hisabwala.Application.Features.Party.EditExpense;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Features.Party.GetPartyInformation;
 using Hisabwala.Core.Common;
@@ -34,6 +35,13 @@ public class PartyController : ControllerBase
 
     [HttpPost]
     public async Task<Result<AddExpenseDTO>> AddExpense([FromBody] AddExpenseCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return result;
+    }
+
+    [HttpPost]
+    public async Task<Result<EditExpenseDTO>> EditExpense([FromBody] EditExpenseCommand command)
     {
         var result = await _mediator.Send(command);
         return result;
