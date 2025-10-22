@@ -1,5 +1,4 @@
-﻿using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Core.Common;
+﻿using Hisabwala.Core.Common;
 using MediatR;
 
 namespace Hisabwala.Application.Features.Contribution.AddContribution

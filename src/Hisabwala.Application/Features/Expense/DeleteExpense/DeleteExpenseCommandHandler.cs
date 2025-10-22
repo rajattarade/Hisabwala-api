@@ -1,18 +1,14 @@
-﻿using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Features.Party.EditContribution;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
-using Hisabwala.Core.Entities;
 using MediatR;
-using MongoDB.Bson;
 
 namespace Hisabwala.Application.Features.Expense.DeleteExpense
 {
     public class DeleteExpenseCommandHandler : IRequestHandler<DeleteExpenseCommand, Result<DeleteExpenseDTO>>
     {
         private readonly IPartyRepository _partyRepository;
-        private Core.Entities.Party partyInDatabase;
+        private Core.Entities.Party? partyInDatabase;
 
         public DeleteExpenseCommandHandler(IPartyRepository partyRepository)
         {
@@ -44,7 +40,7 @@ namespace Hisabwala.Application.Features.Expense.DeleteExpense
 
         private void UpdateTags()
         {
-            partyInDatabase.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
+            partyInDatabase!.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
         }
     }
 }

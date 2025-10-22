@@ -16,7 +16,7 @@ namespace Hisabwala.Application.Features.Contribution.DeleteContribution
 
         public async Task<Result<DeleteContributionDTO>> Handle(DeleteContributionCommand request, CancellationToken cancellationToken)
         {
-            Core.Entities.Party partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            Core.Entities.Party partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
             var contri = partyInDatabase.Contributions.FirstOrDefault(c => c.Id == request.ID);
             if (contri == null)
             {

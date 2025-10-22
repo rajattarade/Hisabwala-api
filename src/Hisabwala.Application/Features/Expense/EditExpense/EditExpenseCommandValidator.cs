@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
@@ -21,7 +15,7 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
 
         public async Task<Result<bool>> ValidateAsync(EditExpenseCommand request, CancellationToken cancellationToken)
         {
-            var partyValidationResult = await Utilities.ValidatePartyCode(request.PartyCode, cancellationToken, _partyRepository);
+            var partyValidationResult = await Utilities.ValidatePartyCode(request.PartyCode!, cancellationToken, _partyRepository);
 
             if (!partyValidationResult.Success)
                 return partyValidationResult;
@@ -47,7 +41,7 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
             if (request.Tag.Length > 50)
                 return Result<bool>.Fail("Tag cannot exceed 50 characters.");
 
-            var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
             if (!partyInfo.Expenses.Any(c => c.Id == request.ID))
             {
                 return Result<bool>.Fail("Invalid Expense ID.");

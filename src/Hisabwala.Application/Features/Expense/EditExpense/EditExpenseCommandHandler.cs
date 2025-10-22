@@ -1,9 +1,6 @@
-﻿using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Features.Party.EditContribution;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
-using Hisabwala.Core.Entities;
 using MediatR;
 using MongoDB.Bson;
 
@@ -12,7 +9,7 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
     public class EditExpenseCommandHandler : IRequestHandler<EditExpenseCommand, Result<EditExpenseDTO>>
     {
         private readonly IPartyRepository _partyRepository;
-        private Core.Entities.Party partyInDatabase;
+        private Core.Entities.Party? partyInDatabase;
 
         public EditExpenseCommandHandler(IPartyRepository partyRepository)
         {
@@ -49,9 +46,9 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
 
         private void AddContributorIfNeeded(string contributorName, string contributionTag)
         {
-            if (!partyInDatabase.Contributions.Any(c => c.Name == contributorName))
+            if (!partyInDatabase!.Contributions.Any(c => c.Name == contributorName))
             {
-                partyInDatabase.Contributions.Add(new Contribution
+                partyInDatabase.Contributions.Add(new Core.Entities.Contribution
                 {
                     Id = ObjectId.GenerateNewId().ToString(),
                     Name = contributorName,
@@ -70,7 +67,7 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
 
         private void UpdateTags()
         {
-            partyInDatabase.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
+            partyInDatabase!.UpdateTags(partyInDatabase.Expenses.Select(e => e.Tag.FirstCharToUpper()).Distinct().ToList());
         }
     }
 }
