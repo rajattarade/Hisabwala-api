@@ -1,7 +1,7 @@
 ﻿using Hisabwala.Core.Common;
 using MediatR;
 
-namespace Hisabwala.Application.Features.Party.DeleteContribution
+namespace Hisabwala.Application.Features.Contribution.DeleteContribution
 {
     public class DeleteContributionCommand : IRequest<Result<DeleteContributionDTO>>
     {

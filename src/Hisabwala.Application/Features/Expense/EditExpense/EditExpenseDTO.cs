@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hisabwala.Application.Features.Party.EditExpense
+namespace Hisabwala.Application.Features.Expense.EditExpense
 {
     public class EditExpenseDTO
     {

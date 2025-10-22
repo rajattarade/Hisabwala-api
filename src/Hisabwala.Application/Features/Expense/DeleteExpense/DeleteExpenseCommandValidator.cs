@@ -8,7 +8,7 @@ using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
-namespace Hisabwala.Application.Features.Party.DeleteExpense
+namespace Hisabwala.Application.Features.Expense.DeleteExpense
 {
     public class DeleteExpenseCommandValidator : IValidator<DeleteExpenseCommand>
     {

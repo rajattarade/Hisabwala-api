@@ -1,4 +1,4 @@
-﻿namespace Hisabwala.Application.Features.Party.AddContribution
+﻿namespace Hisabwala.Application.Features.Contribution.AddContribution
 {
     public class AddContributionDTO
     {

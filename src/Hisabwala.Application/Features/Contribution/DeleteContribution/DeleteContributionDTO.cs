@@ -1,4 +1,4 @@
-﻿namespace Hisabwala.Application.Features.Party.DeleteContribution
+﻿namespace Hisabwala.Application.Features.Contribution.DeleteContribution
 {
     public class DeleteContributionDTO
     {

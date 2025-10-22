@@ -5,7 +5,7 @@ using Hisabwala.Core.Entities;
 using MediatR;
 using MongoDB.Bson;
 
-namespace Hisabwala.Application.Features.Party.AddContribution
+namespace Hisabwala.Application.Features.Contribution.AddContribution
 {
     public class AddContributionCommandHandler : IRequestHandler<AddContributionCommand, Result<AddContributionDTO>>
     {

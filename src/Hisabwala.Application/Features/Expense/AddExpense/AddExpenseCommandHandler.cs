@@ -1,50 +1,54 @@
-﻿using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Features.Party.EditContribution;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 using Hisabwala.Core.Entities;
 using MediatR;
 using MongoDB.Bson;
+using MongoDB.Driver;
 
-namespace Hisabwala.Application.Features.Party.EditExpense
+namespace Hisabwala.Application.Features.Expense.AddExpense
 {
-    public class EditExpenseCommandHandler : IRequestHandler<EditExpenseCommand, Result<EditExpenseDTO>>
+    public class AddExpenseCommandHandler : IRequestHandler<AddExpenseCommand, Result<AddExpenseDTO>>
     {
         private readonly IPartyRepository _partyRepository;
         private Core.Entities.Party partyInDatabase;
 
-        public EditExpenseCommandHandler(IPartyRepository partyRepository)
+        public AddExpenseCommandHandler(IPartyRepository partyRepository)
         {
             _partyRepository = partyRepository;
         }
 
-        public async Task<Result<EditExpenseDTO>> Handle(EditExpenseCommand request, CancellationToken cancellationToken)
+        public async Task<Result<AddExpenseDTO>> Handle(AddExpenseCommand request, CancellationToken cancellationToken)
         {
-            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
-            var expense = partyInDatabase.Expenses.FirstOrDefault(c => c.Id == request.ID);
-            if (expense == null)
+            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+
+            var expense = new Expense
             {
-                return Result<EditExpenseDTO>.Fail("Expense not found.");
-            }
+                Id = ObjectId.GenerateNewId().ToString(),
+                Name = request.Name.FirstCharToUpper(),
+                Amount = request.Amount,
+                PaidBy = request.PaidBy.FirstCharToUpper(),
+                Tag = request.Tag.FirstCharToUpper()
+            };
 
-            expense.Name = request.Name!.FirstCharToUpper();
-            expense.Amount = request.Amount;
-            expense.PaidBy = request.PaidBy!.FirstCharToUpper();
-            expense.Tag = request.Tag!.FirstCharToUpper();
-
-            UpdateTags();
-            AddContributorIfNeeded(expense.PaidBy, expense.Tag);
-            partyInDatabase.UpdateContributions();
+            AddExpense(expense);
 
             await _partyRepository.UpdatePartyAsync(partyInDatabase, cancellationToken);
 
-            var expenseDTO = new EditExpenseDTO
+            var expenseDTO = new AddExpenseDTO
             {
                 Id = expense.Id
             };
 
-            return Result<EditExpenseDTO>.Ok(expenseDTO);
+            return Result<AddExpenseDTO>.Ok(expenseDTO);
+        }
+
+        private void AddExpense(Expense expense)
+        {
+            partyInDatabase.Expenses.Add(expense);
+            UpdateTags();
+            AddContributorIfNeeded(expense.PaidBy, expense.Tag);
+            partyInDatabase.UpdateContributions();
         }
 
         private void AddContributorIfNeeded(string contributorName, string contributionTag)

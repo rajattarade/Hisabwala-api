@@ -1,9 +1,9 @@
-﻿using Hisabwala.Application.Features.Party.AddContribution;
-using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Features.Party.DeleteContribution;
-using Hisabwala.Application.Features.Party.DeleteExpense;
-using Hisabwala.Application.Features.Party.EditContribution;
-using Hisabwala.Application.Features.Party.EditExpense;
+﻿using Hisabwala.Application.Features.Contribution.AddContribution;
+using Hisabwala.Application.Features.Contribution.DeleteContribution;
+using Hisabwala.Application.Features.Contribution.EditContribution;
+using Hisabwala.Application.Features.Expense.AddExpense;
+using Hisabwala.Application.Features.Expense.DeleteExpense;
+using Hisabwala.Application.Features.Expense.EditExpense;
 using Hisabwala.Application.Features.Party.GeneratePartyCode;
 using Hisabwala.Application.Features.Party.GetPartyInformation;
 using Hisabwala.Core.Common;

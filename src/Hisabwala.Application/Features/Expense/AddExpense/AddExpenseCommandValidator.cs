@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hisabwala.Application.Features.Party.AddExpense;
-using Hisabwala.Application.Interfaces;
+﻿using Hisabwala.Application.Interfaces;
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
-namespace Hisabwala.Application.Features.Party.EditExpense
+namespace Hisabwala.Application.Features.Expense.AddExpense
 {
-    public class EditExpenseCommandValidator : IValidator<EditExpenseCommand>
+    public class AddExpenseCommandValidator : IValidator<AddExpenseCommand>
     {
         private readonly IPartyRepository _partyRepository;
 
-        public EditExpenseCommandValidator(IPartyRepository partyRepository)
+        public AddExpenseCommandValidator(IPartyRepository partyRepository) 
         {
             _partyRepository = partyRepository;
         }
 
-        public async Task<Result<bool>> ValidateAsync(EditExpenseCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> ValidateAsync(AddExpenseCommand request, CancellationToken cancellationToken)
         {
             var partyValidationResult = await Utilities.ValidatePartyCode(request.PartyCode, cancellationToken, _partyRepository);
 
@@ -46,17 +40,6 @@ namespace Hisabwala.Application.Features.Party.EditExpense
 
             if (request.Tag.Length > 50)
                 return Result<bool>.Fail("Tag cannot exceed 50 characters.");
-
-            var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
-            if (!partyInfo.Expenses.Any(c => c.Id == request.ID))
-            {
-                return Result<bool>.Fail("Invalid Expense ID.");
-            }
-
-            if (partyInfo.Expenses.Any(c => c.Name.ToLower() == request.Name.ToLower() && c.Id != request.ID))
-            {
-                return Result<bool>.Fail("Expense with the same name already exists.");
-            }
 
             return Result<bool>.Ok(true);
         }

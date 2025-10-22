@@ -7,7 +7,7 @@ using Hisabwala.Core.Entities;
 using MediatR;
 using MongoDB.Bson;
 
-namespace Hisabwala.Application.Features.Party.DeleteExpense
+namespace Hisabwala.Application.Features.Expense.DeleteExpense
 {
     public class DeleteExpenseCommandHandler : IRequestHandler<DeleteExpenseCommand, Result<DeleteExpenseDTO>>
     {

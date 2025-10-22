@@ -2,7 +2,7 @@
 using Hisabwala.Application.Shared;
 using Hisabwala.Core.Common;
 
-namespace Hisabwala.Application.Features.Party.DeleteContribution
+namespace Hisabwala.Application.Features.Contribution.DeleteContribution
 {
     public class DeleteContributionCommandValidator : IValidator<DeleteContributionCommand>
     {
