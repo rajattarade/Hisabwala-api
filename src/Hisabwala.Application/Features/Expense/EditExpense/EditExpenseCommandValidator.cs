@@ -42,12 +42,12 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
                 return Result<bool>.Fail("Tag cannot exceed 50 characters.");
 
             var partyInfo = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
-            if (!partyInfo.Expenses.Any(c => c.Id == request.ID))
+            if (!partyInfo.Expenses.Any(c => c.Id == request.Id))
             {
                 return Result<bool>.Fail("Invalid Expense ID.");
             }
 
-            if (partyInfo.Expenses.Any(c => c.Name.ToLower() == request.Name.ToLower() && c.Id != request.ID))
+            if (partyInfo.Expenses.Any(c => c.Name.ToLower() == request.Name.ToLower() && c.Id != request.Id))
             {
                 return Result<bool>.Fail("Expense with the same name already exists.");
             }

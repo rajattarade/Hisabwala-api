@@ -19,7 +19,7 @@ namespace Hisabwala.Application.Features.Expense.EditExpense
         public async Task<Result<EditExpenseDTO>> Handle(EditExpenseCommand request, CancellationToken cancellationToken)
         {
             partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode!, cancellationToken);
-            var expense = partyInDatabase.Expenses.FirstOrDefault(c => c.Id == request.ID);
+            var expense = partyInDatabase.Expenses.FirstOrDefault(c => c.Id == request.Id);
             if (expense == null)
             {
                 return Result<EditExpenseDTO>.Fail("Expense not found.");

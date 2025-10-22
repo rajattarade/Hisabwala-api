@@ -19,6 +19,11 @@ namespace Hisabwala.Application.Features.Contribution.AddContribution
         public async Task<Result<AddContributionDTO>> Handle(AddContributionCommand request, CancellationToken cancellationToken)
         {
             partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            partyInDatabase = await _partyRepository.GetPartyAsync(request.PartyCode, cancellationToken);
+            if (partyInDatabase is null)
+            {
+                return Result<AddContributionDTO>.Fail("Party not found.");
+            }
 
             var contri = new Core.Entities.Contribution
             {
